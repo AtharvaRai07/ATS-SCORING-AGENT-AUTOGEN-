@@ -1,6 +1,7 @@
 # AI-Powered ATS Resume Analyzer
 
-![Project Banner]([https://microsoft.github.io/autogen/stable//_static/logo.svg])
+<img src="https://microsoft.github.io/autogen/stable/_static/logo.svg" width="150">
+
 
 [View Technical Documentation](documentation.md)
 
