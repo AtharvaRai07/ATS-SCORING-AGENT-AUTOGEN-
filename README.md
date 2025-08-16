@@ -1,8 +1,8 @@
 # AI-Powered ATS Resume Analyzer
 
-![Project Banner]([https://raw.githubusercontent.com/sunnysavita10/Meow-Meow-1.0/main/Screenshot%202024-07-26%20120148.png](https://microsoft.github.io/autogen/stable//_static/logo.svg))
+![Project Banner]([https://microsoft.github.io/autogen/stable//_static/logo.svg])
 
-[View Technical Documentation](docs/documentation.md)
+[View Technical Documentation](documentation.md)
 
 This project is an advanced Applicant Tracking System (ATS) that leverages a team of AI agents to analyze resumes, score them against job descriptions, and provide actionable feedback for improvement. Built with Streamlit and powered by Autogen, this tool streamlines the recruitment process by automating resume screening and evaluation.
 
