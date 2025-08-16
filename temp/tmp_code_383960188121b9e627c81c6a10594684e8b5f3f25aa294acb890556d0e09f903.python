@@ -1,0 +1,112 @@
+import matplotlib.pyplot as plt
+import seaborn as sns
+import numpy as np
+
+# ------------------------------------------------------------------
+# 1. Data placeholders (Agent should replace with actual values)
+# ------------------------------------------------------------------
+user_scores = {
+    "total_score": 78,  # e.g., 82
+    "category_scores": {
+        "skills_match": 80,                # e.g., 62
+        "experience_relevance": 75, # e.g., 100
+        "education_alignment": 85,   # e.g., 100
+        "format_structure": 90,         # e.g., 95
+        "keyword_optimization": 70  # e.g., 62
+    },
+    "weighted_breakdown": {
+        "skills_match_weighted": 24.0,                # e.g., 19.0
+        "experience_relevance_weighted": 18.75, # e.g., 25.0
+        "education_alignment_weighted": 12.75,   # e.g., 15.0
+        "format_structure_weighted": 13.5,         # e.g., 14.0
+        "keyword_optimization_weighted": 10.5  # e.g., 9.0
+    }
+}
+
+# Industry benchmarks placeholders
+industry_benchmarks = {
+    "skills_match": 85,              
+    "experience_relevance": 90,
+    "education_alignment": 95, 
+    "keyword_optimization": 78
+}
+
+# ------------------------------------------------------------------
+# 2. Create a single figure with 3 subplots
+# ------------------------------------------------------------------
+fig = plt.figure(figsize=(15, 5))
+sns.set_style("whitegrid")
+
+# ---------------------- Bar Chart ----------------------
+ax1 = fig.add_subplot(1, 3, 1)
+categories = [
+    "skills_match",
+    "experience_relevance",
+    "education_alignment",
+    "keyword_optimization"
+]
+
+candidate_vals = [user_scores["category_scores"][c] for c in categories]
+benchmark_vals = [industry_benchmarks[c] for c in categories]
+
+bar_width = 0.35
+x = np.arange(len(categories))
+ax1.bar(x - bar_width/2, candidate_vals, width=bar_width, label="Candidate", color="#4c72b0")
+ax1.bar(x + bar_width/2, benchmark_vals, width=bar_width, label="Industry Benchmark", color="#c44e52")
+ax1.set_xticks(x)
+ax1.set_xticklabels([c.replace('_', ' ').title() for c in categories], rotation=45, ha="right")
+ax1.set_ylabel("Score (%)")
+ax1.set_title("Candidate vs. Industry Benchmarks")
+ax1.set_ylim(0, 110)
+ax1.legend()
+
+# ---------------------- Pie Chart ----------------------
+ax2 = fig.add_subplot(1, 3, 2)
+labels = [
+    "Skills Match",
+    "Experience Relevance",
+    "Education Alignment",
+    "Format & Structure",
+    "Keyword Optimization"
+]
+weights = [
+    user_scores["weighted_breakdown"]["skills_match_weighted"],
+    user_scores["weighted_breakdown"]["experience_relevance_weighted"],
+    user_scores["weighted_breakdown"]["education_alignment_weighted"],
+    user_scores["weighted_breakdown"]["format_structure_weighted"],
+    user_scores["weighted_breakdown"]["keyword_optimization_weighted"]
+]
+ax2.pie(weights, labels=labels, autopct='%1.1f%%', startangle=140, colors=sns.color_palette("pastel"))
+ax2.set_title("Weighted Score Contribution")
+
+# ---------------------- Radar Chart ----------------------
+ax3 = fig.add_subplot(1, 3, 3, polar=True)
+radar_labels = [
+    "Skills Match",
+    "Experience Relevance",
+    "Education Alignment",
+    "Format & Structure",
+    "Keyword Optimization"
+]
+radar_vals = [
+    user_scores["category_scores"]["skills_match"],
+    user_scores["category_scores"]["experience_relevance"],
+    user_scores["category_scores"]["education_alignment"],
+    user_scores["category_scores"]["format_structure"],
+    user_scores["category_scores"]["keyword_optimization"]
+]
+values = radar_vals + [radar_vals[0]]
+angles = np.linspace(0, 2 * np.pi, len(radar_labels), endpoint=False).tolist()
+angles += angles[:1]
+ax3.plot(angles, values, 'o-', linewidth=2, color="#1f77b4", label="Candidate")
+ax3.fill(angles, values, color="#1f77b4", alpha=0.15)
+ax3.set_thetagrids(np.degrees(angles[:-1]), radar_labels)
+ax3.set_ylim(0, 110)
+ax3.set_title("Performance Radar")
+ax3.grid(True)
+
+plt.tight_layout()
+plt.savefig("combined_charts.png", dpi=300)
+plt.close()
+
+print("Combined chart saved as combined_charts.png")

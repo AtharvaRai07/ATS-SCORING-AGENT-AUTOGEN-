@@ -1,0 +1,77 @@
+code = '''
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# --- Data ---------------------------------------------------------------
+# Category labels
+categories = ['Skills Match', 'Keyword Optimization', 'Experience Relevance']
+
+# Candidate ATS scores
+user_scores = [55, 60, 85]
+# Industry benchmarks
+benchmarks  = [82, 78, 90]
+
+# Weighted contributions (from ATS report)
+weighted_breakdown = {
+    'skills_match_weighted':      16.5,
+    'experience_relevance_weighted': 21.25,
+    'education_alignment_weighted': 15.0,
+    'format_structure_weighted':  14.25,
+    'keyword_optimization_weighted': 9.0
+}
+pie_labels   = list(weighted_breakdown.keys())
+pie_values   = list(weighted_breakdown.values())
+
+# Radar data
+radar_labels = ['Skills Match', 'Keyword Optimization', 
+                'Experience Relevance', 'Education Alignment',
+                'Format Structure']
+radar_user   = [55, 60, 85, 100, 95]          # User scores
+radar_user.append(radar_user[0])                # Close the polygon
+
+# --- Plotting -----------------------------------------------------------
+fig, axes = plt.subplots(2, 2, figsize=(12, 12))
+
+# 1. Bar chart: User vs Benchmark
+ax = axes[0, 0]
+x = np.arange(len(categories))
+width = 0.35
+ax.bar(x - width/2, user_scores, width, label='User', color='skyblue')
+ax.bar(x + width/2, benchmarks, width, label='Benchmark', color='lightcoral')
+ax.set_xticks(x)
+ax.set_xticklabels(categories)
+ax.set_ylabel('Score (%)')
+ax.set_title('User vs. Industry Benchmark')
+ax.legend()
+ax.grid(axis='y', linestyle='--', alpha=0.5)
+
+# 2. Pie chart: Weighted score contributions
+ax = axes[0, 1]
+ax.pie(pie_values, labels=pie_labels, autopct='%1.1f%%', startangle=140,
+       colors=sns.color_palette('pastel'))
+ax.set_title('Weighted Score Contributions')
+
+# 3. Radar chart: Category performance
+angles = np.linspace(0, 2*np.pi, len(radar_labels), endpoint=False).tolist()
+angles += angles[:1]
+ax = plt.subplot(2, 2, 3, polar=True)
+ax.plot(angles, radar_user, color='navy', linewidth=2, marker='o')
+ax.fill(angles, radar_user, color='navy', alpha=0.25)
+ax.set_thetagrids(np.degrees(angles[:-1]), radar_labels)
+ax.set_title('Radar Chart of Performance')
+ax.set_yticklabels([])  # hide radial grid labels
+
+# 4. Hide unused subplot
+axes[1, 1].axis('off')
+
+plt.tight_layout()
+plt.savefig('combine_chart.png', dpi=300)
+print("Charts generated")
+'''
+
+# Write the plotting script to a file
+with open('solution.py', 'w') as f:
+    f.write(code)
+    print("Code saved successfully in solution.py")
+'''
