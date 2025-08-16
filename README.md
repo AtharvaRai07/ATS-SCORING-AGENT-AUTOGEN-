@@ -1,6 +1,6 @@
 # AI-Powered ATS Resume Analyzer
 
-![Project Banner](https://raw.githubusercontent.com/sunnysavita10/Meow-Meow-1.0/main/Screenshot%202024-07-26%20120148.png)
+![Project Banner]([https://raw.githubusercontent.com/sunnysavita10/Meow-Meow-1.0/main/Screenshot%202024-07-26%20120148.png](https://microsoft.github.io/autogen/stable//_static/logo.svg))
 
 [View Technical Documentation](docs/documentation.md)
 
