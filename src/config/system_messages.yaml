@@ -335,5 +335,3 @@ SUMMARY_AGENT: |
 
 
 
-SEND_REPORT_AGENT: |
-  You are a report sender agent. You have been provided a tool name send_email_with_attachment where you can send the report to the user email
